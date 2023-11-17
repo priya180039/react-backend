@@ -30,7 +30,7 @@ app.use(
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: ["https://cleauve-fortech.vercel.app", "http://localhost:3000"],
   })
 );
 app.use(express.json());
