@@ -16,13 +16,18 @@ const app = express();
 //   await db.sync();
 // })();
 
+app.set("trust proxy", 1);
+
 app.use(
   session({
     secret: process.env.SESS_SECRET,
     resave: false,
     saveUninitialized: true,
+    proxy: true,
     cookie: {
-      secure: "auto",
+      secure: true, // required for cookies to work on HTTPS
+      httpOnly: false,
+      sameSite: 'none'
     },
   })
 );
@@ -39,4 +44,4 @@ app.use(ThreadRoute);
 app.use(ReplyRoute);
 app.use(AuthRoute);
 
-app.listen(process.env.APP_PORT, () => console.log("Server up and running..."));
+app.listen(process.env.PORT, () => console.log("Server up and running..."));
